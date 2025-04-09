@@ -78,3 +78,52 @@ window.addEventListener("DOMContentLoaded", () => {
 	const btnTheme = document.getElementById("toggle-theme");
 	btnTheme?.addEventListener("click", toggleDarkMode);
 });
+
+/** <<<<<<<<<<<<<<<<<<<<<<< PETICIONES COMICS/PERSONAJES <<<<<<<<<<<<<<<<<<<<<<<  ***/ 
+
+const fetchData = (input, order) => {
+  containerInfoCharacter.classList.add("hidden");
+  comicInfoContainer.classList.add("hidden");
+  containerComics.classList.remove("hidden");
+  loaderContanier.classList.remove("hidden");
+  characterContainer.classList.add("hidden");
+  total = undefined;
+  let url;
+  if (input !== "") {
+    url = `https://gateway.marvel.com/v1/public/comics?titleStartsWith=${input}&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${public}&hash=${hash}`;
+  } else {
+    url = `https://gateway.marvel.com/v1/public/comics?&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${public}&hash=${hash}`;
+  }
+  loader('show');
+  fetch(url)
+    .then((response) => response.json())
+    .then((obj) => {
+      loader('hide'),
+      printData(obj.data.results);
+      total = obj.data.total;
+      totalData.innerHTML = total;
+    })
+    .catch((error) => console.error(error));
+};
+
+const fetchCharacters = (input, order) => {
+  characterContainer.classList.add("hidden");
+  total = undefined;
+  loader('show');
+  let url;
+  if (input !== "") {
+    url = `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${input}&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${public}&hash=${hash}`;
+  } else {
+    url = `https://gateway.marvel.com/v1/public/characters?&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${public}&hash=${hash}`;
+  }
+  fetch(url)
+    .then((response) => response.json())
+    .then((obj) => {
+      printCharactersComic(obj.data.results, "", characterContainer);
+      
+      total = obj.data.total;
+      totalData.innerHTML = total;
+      loader('hide');
+    })
+    .catch((error) => console.error(error));
+};
