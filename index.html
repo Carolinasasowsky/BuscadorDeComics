@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" class="theme">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- ------------------Main meta-tags----------------- -->
+    <meta name="author" content="Maria Carolina Sasowsky">
+    <meta name="description" content="Con esta aplicacion puedes buscar los personajes y comics de Marvel">
+    <meta name="keywords" content="personajes, comic, estado, Marvel">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    
+    
+    <!-- ------------------Links----------------- -->
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">   
+    <!-- Tailwind CSS -->
+	<script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>    
+    <link rel="stylesheet" href="./css/other-styles.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Buscador de Comics</title>
+</head>
+
+<body>
+    
+    <!-- Header -->
+    <header>
+        <nav class="navbar relative">
+            <img src="./images/logomarvel.png" alt="Logo" class="absolute top-[8rem] sm:top-[10rem] md:top-[12rem] lg:top-[20rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-24 sm:h-32 md:h-40 lg:h-80 w-auto"> 
+        </nav>
+    </header>
+    <main>
+        <!-- Banner Marvel -->
+         <section class="bg-cover bg-center bg-no-repeat h-64 sm:h-[555px] w-full"" 
+              style="background-image: url('./images/banner_marvel.png');">
+            <div class="banner-body"></div>
+         </section>
+       <!-- Comienza sección principal -->
+        <section class="max-w-7xl mx-auto px-4 mb-3">
+            <nav class="column search-section">
+                <!-- Comienza sección búsqueda -->
+                <div class="flex flex-wrap justify-between ml-3 mr-5 title-search-container">
+                    <h2><label for="search-input" class="label text-2xl">Búsqueda</label></h2>
+                </div>
+                <div class="flex flex-wrap -mx-4">
+                    <div class="flex flex-wrap items-center ml-3 mr-5 my-2 px-2">
+                        <i class="fas fa-search"></i>
+                        <input id="search-input" class="input border border-gray-300 rounded px-3 py-2 mx-2 mb-3 input-search" type="text"
+                            placeholder="Ingresa tu búsqueda">
+                        <label for="search-type" class="label mx-3 label-select pt-2 mb-3 label-select">TIPO</label>
+                        <div>
+                            <select id="search-type" class="select select-search mb-3 mx-2">
+                                <option value="comics">COMICS</option>
+                                <option value="characters">PERSONAJES</option>
+                            </select>
+                        </div>
+                        <label for="search-order" class="label mx-3 label-select pt-2 mb-3">ORDEN</label>
+                        <div>
+                            <select id="search-order" class="select select-search mb-3 mx-2">
+                                <option value='title'>A/Z</option>
+                                <option value='-title'>Z/A</option>
+                                <option value='-focDate'>Más nuevos</option>
+                                <option value='focDate'>Más viejos</option>
+                            </select>
+                        </div>
+                        <button id="btn-search" class="button mx-2 btn-search mb-3">BUSCAR</button>
+                        <button onclick="mainPage()" class="button font-bold mx-2 mt-3" id="main-page">INICIO</button>
+                        <!--Botón Modo Claro/Oscuro-->
+                        <button id="toggle-theme" aria-label="Cambiar tema" class="mx-2 mb-3">
+                            <i id="icon-theme" class="fas fa-moon"></i>
+                        </button>
+
+                    </div>
+                </div>
+            </nav>
+        </section>
+        <!-- Termina sección búsqueda -->
+
+        <!-- Comienza sección Resultados de la búsqueda-->
+        <!-- Comics -->
+        <section id="container-comics" class="w-full max-w-screen-xl mx-auto px-4 mb-5">
+            <h2 class="subtitle text-xl font-bold mx-4 mb-3 text-gray-800">Resultados</h2>
+            <p class="mb-3 mx-4 font-bold title-color"><span id="total-result">0</span> resultados</p>
+            <div id="main-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"></div>
+        </section>
+        <section id="container-comic-info" class="max-w-7xl mx-auto px-4 mb-5 hidden">
+            <div id="comic-info" class="p-6"></div>
+            <div id="comic-data-characters" class="p-6"></div>
+            <div id="comic-characters-info" class="flex flex-wrap px-6 pt-0 gap-4"></div>
+        </section>
+        <section id="container-character-info" class="max-w-7xl mx-auto px-4 mb-5 hidden character-info">
+            <div id="character-info" class="p-6"></div>
+            <div id="character-data-comics" class="p-6"></div>
+            <div id="comics-character-info" class="flex flex-wrap px-6 pt-0 gap-4"></div>
+        </section>
+        <!-- Termina sección Resultados de la búsqueda-->
+        <!-- Loader -->
+        <section id="container-loader" class="hidden container-loader">
+            <div id="loader-container">
+                <div id="loader" style="display: none;" role="status"> 
+                </div>
+            </div>
+        </section>
+        <!-- Paginador, se en el main.js en cada función-->
+        <section class="max-w-7xl mx-auto px-4 flex justify-center my-6" id="pagination-container">
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <nav class="navbar flex justify-center items-center bg-black navbar-footer">
+            <span class="text-center py-3 px-5 text-white footer-text">Hecho con 💗 por Carolina Sasowsky</span>
+        </nav>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.18.0/js/md5.min.js"
+        integrity="sha512-Hmp6qDy9imQmd15Ds1WQJ3uoyGCUz5myyr5ijainC1z+tP7wuXcze5ZZR3dF7+rkRALfNy7jcfgS5hH8wJ/2dQ=="
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/348feffef2.js" crossorigin="anonymous"></script>
+    <script src="./js/app.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>
