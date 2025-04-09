@@ -7,7 +7,7 @@
   /* .ESTILOS GENERALES.. */
 }
 .theme--dark {
-  --backgroundColor: #2C2E43;
+  --backgroundColor: #4b4d62;
   --fontColorPpal: #f6e5e9;
   --fontColorSecond: #010101;
   --hoverFontColor: #080808;
@@ -70,6 +70,13 @@ a:hover p {
   color: var(--hoverFontColor);
 }
 
+.theme--dark select,
+.theme--dark option {
+  background-color: #1f2937; /* gris oscuro */
+  color: white;
+}
+
+
 
 /* ..SECCIÓN BÚSQUEDA. ***/
 .input-search {
@@ -104,19 +111,11 @@ a:hover p {
   margin-top: 3rem;
 }
 
-.btn-search {
-  background-color: var(--fontColorSecond);
-  color: white;
-  font-weight: bold;
-  width: 5rem;
-  height: 2.5rem;
-  margin: 0;
-  border: none;
-  border-radius: 5px;
+
+.theme--dark .btn-search:hover {
+  color: #f5e7a9;
 }
-.btn-search:hover {
-  color: #FFD523;
-}
+
 
 .btn-theme {
   background-color: transparent;
@@ -132,6 +131,7 @@ a:hover p {
 .btn-theme:hover {
   background-color: #acaaaa;
 }
+
 
 #last-page-btn {
   background-color: var(--fontColorSecond);
@@ -317,5 +317,3 @@ a:hover p {
     justify-content: center;
   }
 }
-
-
