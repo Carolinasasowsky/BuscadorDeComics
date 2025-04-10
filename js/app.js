@@ -239,4 +239,35 @@ searchType.addEventListener("change", () => {
     }
 });
 
+/** <<<<<<<<<<<<<<<<<<<<<<< CONFIGURACIÓN PAGINADO <<<<<<<<<<<<<<<<<<<<<<> ***/
 
+const firstPage = (func) => {
+  offset = 0;
+  func();
+  pageNumber = 1;
+  return offset;
+};
+
+const previewsPage = (func) => {
+  offset -= 20;
+  func();
+  pageNumber = Math.floor(offset / 20) + 1;
+  return offset;
+};
+
+const nextPage = (func) => {
+  offset += 20;
+  func();
+  pageNumber = Math.floor(offset / 20) + 1;
+  return offset;
+};
+
+const lastPage = (func) => {
+  const isExact = total % 20 === 0;
+  const pages = Math.floor(total / 20);
+  offset = (isExact ? pages - 1 : pages) * 20;
+  offset = total - (total % 20);
+  func();
+  pageNumber = Math.floor(offset / 20) + 1;
+  return offset;
+};
