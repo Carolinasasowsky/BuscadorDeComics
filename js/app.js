@@ -197,4 +197,46 @@ const getComicsCharacterDetail = (id) => {
     .catch((error) => console.error(error));
 };
 
+/** <<<<<<<<<<<<<<<<<<<<<<< FUNCIONALIDAD BÚSQUEDA <<<<<<<<<<<<<<<<<<<<<<<  ***/
+
+const chargingSearch = () => {
+    comicInfoContainer.classList.add("hidden");
+    containerInfoCharacter.classList.add("hidden");
+    containerComics.classList.remove("hidden");
+    total = undefined;
+    offset = 0;
+    input = searchInput.value;
+    type = searchType.value;
+    order = searchOrder.value;
+
+    if (type === "comics") {
+        fetchData(input, order);
+    }
+
+    if (type === "characters") {
+        fetchCharacters(input, order);
+    }
+    pageNumber = 1;
+};
+    
+btnSearch.addEventListener("click", chargingSearch);
+  
+searchType.addEventListener("change", () => {
+    type = searchType.value;
+    if (type === "comics") {
+      searchOrder.innerHTML = `
+          <option value='title'>A/Z</option>
+          <option value='-title'>Z/A</option>
+          <option value='-focDate'>Más nuevos</option>
+          <option value='focDate'>Más viejos</option> 
+          `;
+    }
+    if (type === "characters") {
+      searchOrder.innerHTML = `
+          <option value='name'>A/Z</option>
+          <option value='-name'>Z/A</option>
+          `;
+    }
+});
+
 
