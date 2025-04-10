@@ -111,4 +111,42 @@ const printComicInfo = (arr) => {
 	comicInfo.innerHTML = box;
 };
 
+const printCharactersComic = (arr, containerText, container) => {
+	container.classList.remove("hidden");
+	if (arr.length === 0) {
+		containerText.innerHTML = `
+              <h3 class="title text-2xl font-bold mb-2 title-color">Personajes</h3>
+              <p class="text-sm font-bold mt-0">${arr.length} Resultado(s)</p>
+              <p class="subtitle text-lg font-bold mt-6 title-color">No se han encontrado resultados</p>`;
+	}
+	let box = "";
+	arr.forEach((character) => {
+		const {
+			name,
+			thumbnail: { extension, path },
+			id,
+		} = character;
+		const pathNonFoundNowanted =
+			"http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
+		const pathNonFoundWanted =
+			"https://i.pinimg.com/564x/6d/af/a0/6dafa08555ee450d9d61061c7bc23cb5";
 
+		containerText.innerHTML = `
+                  <h3 class="title text-2xl font-bold mb-2 text-center title-color">Personajes</h3>
+                  <p class="text-sm font-bold mt-0 text-center">${arr.length} Resultado(s)</p>`;
+		box += `<div class="grid place-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" onclick="getCharacterDetail(${id})">
+                      <div class="character-card" data-title="Character" >
+                          <img src="${
+														path === pathNonFoundNowanted
+															? pathNonFoundWanted
+															: path
+													}.${extension}" alt="${name}" class="character-img">
+                          <span class="character-span"></span>
+                          <p class="name text-base sm:text-lg font-bold text-center mt-1 p-3">${name}</p>
+                      </div>
+                  </div> `;
+	});
+
+	container.innerHTML = box;
+
+  };
