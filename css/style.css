@@ -13,6 +13,11 @@
   --hoverFontColor: #080808;
 }
 
+.hover-font-color:hover {
+  color: var(--hoverFontColor);
+}
+
+
 body {
   background-color: var(--backgroundColor);
   margin: 0;

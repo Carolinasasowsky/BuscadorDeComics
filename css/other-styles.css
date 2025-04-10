@@ -23,7 +23,15 @@
 
 
 .theme--dark #main-page:hover {
-  color: #f5e7a9;
+  color: #f5e7a9;  
+}
+
+.theme--dark #main-page{
+  background: black;
+}
+
+.theme--dark #btn-search {
+  background: black;
 }
 
 .theme--dark #btn-search:hover {
