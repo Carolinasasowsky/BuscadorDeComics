@@ -18,7 +18,8 @@ ________________________________
 
 ## 🌐 Ver la aplicación en funcionamiento
 
-👉 [Explorar la interfaz desplegada](https://tu-link.com)
+👉[Explorar la interfaz desplegada](https://carolinasasowsky.github.io/BuscadorDeComics/)
+
 
 ________________________________
 
@@ -85,6 +86,6 @@ ________________________________
 
 ## 📂 Objetivo del proyecto
 
-Este proyecto forma parte de mi **Portafolio Personal**, con el objetivo de mostrar el nivel de desarrollo técnico y creativo alcanzado durante el proceso de formación.
+Este proyecto forma parte de mi [**Portafolio Personal**](https://carolinasasowsky.github.io/proyecto-portafolio/), con el objetivo de mostrar el nivel de desarrollo técnico y creativo alcanzado durante el proceso de formación.
 
 ---
