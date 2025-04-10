@@ -176,3 +176,47 @@ const printCharactersComic = (arr, containerText, container) => {
               </button>
       `;
 };
+
+const printInfoCharater = (arr) => {
+	containerComics.classList.add("hidden");
+	comicInfoContainer.classList.add("hidden");
+	containerInfoCharacter.classList.remove("hidden");
+	let box = "";
+	arr.forEach((character) => {
+		const {
+			name,
+			thumbnail: { extension, path },
+			description,
+		} = character;
+		box += `
+          <div class="flex flex-wrap">
+              <div class="w-full md:w-1/4 px-4r">
+                  <figure class="img-detalle mb-4">
+                  <img src="${
+										path === pathNonFoundNowanted ? pathNonFoundWanted : path
+									}.${extension}" alt="${name}" class="img-comic-info text-comic w-full h-auto object-contain">
+                  </figure>
+              </div>
+              <div class="w-full md:w-3/4 px-6 py-4 text-base label-select">
+                  <h3 class="title text-2xl font-bold title-color mb-2">${name}</h3>
+                  <h4 class="font-bold mt-3 mb-2">Descripción:</h4>
+                  <p class="text-justify pr-6">${
+										description ? description : "Sin información"
+									}</p>
+              </div>
+          </div>`;
+	});
+	characterInfo.innerHTML = box;
+
+	if (arr[0].comics.available == 0) {
+		characterDataComics.innerHTML = `
+              <h3 class="title text-2xl font-bold mb-2 title-color">Comics</h3>
+              <p class="text-sm font-bold mt-0 label-select">${arr[0].comics.available} Resultado(s)</p>
+              <p class="subtitle text-lg font-bold mt-6 title-color">No se han encontrado resultados</p>`;
+	} else {
+		characterDataComics.innerHTML = `
+          <h3 class="title text-2xl font-bold mb-2 title-color">Comics</h3>
+          <p class="text-sm font-bold mt-0 label-select">${arr[0].comics.available} Resultado(s)</p>`;
+	}
+};
+
