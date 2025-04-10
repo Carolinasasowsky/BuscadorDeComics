@@ -62,3 +62,53 @@ const printData = (arr) => {
       `;
 };
 
+//Función pintar detalle de comic seleccionado
+const printComicInfo = (arr) => {
+	containerComics.classList.add("hidden");
+	containerInfoCharacter.classList.add("hidden");
+	comicInfoContainer.classList.remove("hidden");
+
+	let box = "";
+	arr.forEach((comic) => {
+		const {
+			title,
+			thumbnail: { extension, path },
+			creators,
+			description,
+			dates,
+			characters: { items },
+		} = comic;
+
+		const releaseDate = new Intl.DateTimeFormat("es-AR").format(
+			new Date(dates?.find((el) => el.type === "onsaleDate").date)
+		);
+		const writer = creators?.items
+			?.filter((el) => el.role === "writer")
+			.map((creator) => creator.name)
+			.join(", ");
+		box += `
+          <div class="flex flex-wrap md:flex-nowrap">
+              <div class="w-full md:w-1/4 p-4">
+                  <figure class="img-detalle">
+                  <img src="${
+										path === pathNonFoundNowanted ? pathNonFoundWanted : path
+									}.${extension}" alt="${title}" class="img-comic-info text-comic">
+                  </figure>
+              </div>
+              <div class="w-full md:w-3/4 px-6 py-4 text-lg text-title title-color">
+                  <h3 class="text-2xl font-bold mb-2 title-color">${title}</h3>
+                  <h4 class="font-bold mb-2">Publicado:</h4>
+                  <p>${releaseDate}</p>
+                  <h4 class="font-bold mt-3 mb-2">Guionistas:</h4>
+                  <p>${writer ? writer : "Sin información"}</p>
+                  <h4 class="font-bold mt-3 mb-2">Descripción:</h4>
+                  <p class="text-justify pr-6">${
+										description ? description : "Sin información"
+									}</p>
+              </div>
+          </div>`;
+	});
+	comicInfo.innerHTML = box;
+};
+
+
