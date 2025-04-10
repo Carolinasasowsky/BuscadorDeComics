@@ -271,3 +271,24 @@ const lastPage = (func) => {
   pageNumber = Math.floor(offset / 20) + 1;
   return offset;
 };
+
+/** <<<<<<<<<<<<<<<<<<<<<<< FUNCIONALIDAD PAGINA INICIO <<<<<<<<<<<<<<<<<<<<<<<>  ***/
+
+const mainPage = () => {
+  order = "title";
+  offset = 0;
+  fetchData(input, order);
+  pageNumber = 1;
+  searchType.value = "comics";
+  type = searchType.value;
+  searchOrder.innerHTML = `
+    <option value='title'>A/Z</option>
+    <option value='-title'>Z/A</option>
+    <option value='-focDate'>Más nuevos</option>
+    <option value='focDate'>Más viejos</option> 
+    `;
+};
+
+window.onload = () => {
+    fetchData(input, order);
+};
