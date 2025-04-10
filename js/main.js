@@ -220,3 +220,60 @@ const printInfoCharater = (arr) => {
 	}
 };
 
+//Función pintar los comics del personaje
+const printCharacter = (arr) => {
+	comicsCharacterInfo.classList.remove("hidden");
+	let box = "";
+	arr.forEach((comic) => {
+		const {
+			title,
+			thumbnail: { extension, path },
+			id,
+		} = comic;
+		box += `
+          <div class="w-full sm:w-1/3 lg:w-1/5 flex justify-center" onclick="getDetail(${id})">
+              <figure class="card-image w-full max-w-xs">
+                  <a class="flex flex-col items-center go-to-image">
+                      <img class="img-height" src="${
+												path === pathNonFoundNowanted
+													? pathNonFoundWanted
+													: path
+											}.${extension}" alt="${title}">
+                      <p class=" object-cover mb-2">${title}</p>
+                  </a>
+              </figure>
+          </div>`;
+	});
+	comicsCharacterInfo.innerHTML = box;
+
+	//PAGINADOR EN FUNCIÓN DE UN PERSONAJE
+	paginationContainer.innerHTML = `
+              <button id="first-page-btn" class="button button px-4 py-2 mr-3 border rounded bg-white hover:bg-gray-100 disabled:opacity-50" ${
+								offset === 0 && "disabled"
+							} onclick="firstPage(${() =>
+		getCharacterDetail(characterDetail)})">
+              <i class="fas fa-angle-double-left"></i>
+              </button>
+              <button id="previews-page-btn" class="button px-4 py-2 mr-2 border rounded bg-white hover:bg-gray-100 disabled:opacity-50" ${
+								offset === 0 && "disabled"
+							} onclick="previewsPage(${() =>
+		getCharacterDetail(characterDetail)})">
+              <i class="fas fa-angle-left"></i>
+              </button>
+              <div class="button px-4 py-2 mr-2 border rounded bg-gray-100">
+                  <span id="page-number">${pageNumber}</span>
+              </div>
+              <button id="next-page-btn" class="button px-4 py-2 border rounded bg-white hover:bg-gray-100 disabled:opacity-50" ${
+								offset === total - (total % 20) && "disabled"
+							} onclick="nextPage(${() =>
+		getCharacterDetail(characterDetail)})">
+              <i class="fas fa-angle-right"></i>
+              </button>
+              <button id="last-page-btn" class="button px-4 py-2 ml-3 border rounded bg-white hover:bg-gray-100 disabled:opacity-50" ${
+								offset === total - (total % 20) && "disabled"
+							} onclick="lastPage(${() =>
+		getCharacterDetail(characterDetail)})">
+              <i class="fas fa-angle-double-right"></i>
+              </button>
+      `;
+};
